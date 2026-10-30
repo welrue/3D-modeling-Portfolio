@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+  <title>
+   Maxime Mourey--Morel – Portfolio 3D
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0c1114;
+      --surface: #141b20;
+      --text: #dde5e8;
+      --muted: #8a9aa1;
+      --line: #26333a;
+      --led: #e8412f;
+      color-scheme: dark;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 400 1.0625rem/1.65 "Instrument Sans", system-ui, sans-serif;
+    }
+
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--led);
+      outline-offset: 3px;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Bricolage Grotesque", Georgia, serif;
+      line-height: 1.05;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 4%, rgba(12, 17, 20, .35) 55%, rgba(12, 17, 20, .1));
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 8vw, 6rem);
+      max-width: 12ch;
+    }
+
+    .hero p {
+      max-width: 46ch;
+      color: var(--text);
+      margin: 1.25rem 0 0;
+    }
+
+    .led {
+      display: inline-block;
+      width: .6rem;
+      height: .6rem;
+      border-radius: 50%;
+      background: var(--led);
+      box-shadow: 0 0 12px var(--led);
+      margin-right: .6rem;
+    }
+
+    section {
+      padding: 4.5rem 0;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 2rem;
+    }
+
+    .project {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 4rem;
+    }
+
+    @media(min-width:800px) {
+      .project {
+        grid-template-columns: 1.6fr 1fr;
+        align-items: end;
+      }
+
+      .project:nth-child(even) {
+        grid-template-columns: 1fr 1.6fr;
+      }
+
+      .project:nth-child(even) .media {
+        order: 2;
+      }
+    }
+
+    .media {
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .project h3 {
+      font-size: 1.6rem;
+      margin-bottom: .5rem;
+    }
+
+    .project p {
+      margin: .25rem 0;
+      color: var(--muted);
+    }
+
+    .tools {
+      border-top: 1px solid var(--line);
+      margin-top: 1rem;
+      padding-top: .75rem;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .tools b {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about {
+      border-top: 1px solid var(--line);
+    }
+
+    .about-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media(min-width:800px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact a {
+      display: inline-block;
+      margin: .4rem 1.2rem .4rem 0;
+    }
+
+    .contact {
+      border-top: 1px solid var(--line);
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin: .75rem 0 .25rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    .sub {
+      max-width: 60ch;
+      color: var(--muted);
+      margin: -1rem 0 2rem;
+    }
+
+    footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .tool-card .media {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 16 / 9;
+      padding: 2rem;
+    }
+
+    .tool-card img {
+      width: auto;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .tool-card .img-fill {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      max-height: none;
+      object-fit: contain;
+    }
+
+  </style>
+ </head>
+ <body>
+  <header class="hero">
+   <img alt="Astronaute à la lampe frontale marchant dans une prairie gelée sous la brume" src="media/astronaute-prairie.jpg"/>
+   <div class="wrap">
+    <h1>
+     Modélisation et animation 3D
+    </h1>
+    <p>
+     <span class="led">
+     </span>
+     Maxime Mourey--Morel, étudiant en L3 MIAGE (Méthodes Informatiques Appliquées à la Gestion des Entreprises).
+     Mon hobby est la modélisation 3D. Je construis des scènes 3D complètes, de la modélisation, l'animation et la composition juqu'au rendu final.
+    </p>
+   </div>
+  </header>
+  <main>
+   <section id="environnements">
+    <div class="wrap">
+     <h2>
+      Environnements et ambiances
+     </h2>
+     <p class="sub">
+      Scènes complètes : modélisation, éclairage, composition de scenes et effet post rendu.
+     </p>
+     <div class="grid">
+      <div class="card">
+       <div class="media">
+        <img alt="Astronaute à la lampe frontale dans une prairie gelée sous la brume" loading="lazy" src="media/astronaute-prairie.jpg"/>
+       </div>
+       <h3>
+        Astronaute dans la prairie
+       </h3>
+       <p>
+        Personnage seul dans l'herbe jaune et la neige, sous une brume épaisse
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <video aria-label="Rendu animé de la scène des tuyaux avec effet VHS" controls="" loop="" muted="" playsinline="" autoplay="" poster="media/pipeProjectRender.png" preload="none" src="media/pipePorjectRender20001-0059_ntsc.webm">
+        </video>
+       </div>
+       <h3>
+        Couloir des tuyaux vidéo, rendu VHS
+       </h3>
+       <p>
+        Plan animé dans un réseau de tuyaux rouillés avec un personnage en combinaison assie sur un mecha.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <img alt="Salle sombre remplie de tuyaux avec une lumière rouge et un écran lumineux" loading="lazy" src="media/pipeProjectRender.png"/>
+       </div>
+       <h3>
+        Couloir des tuyaux statique
+       </h3>
+       <p>
+        plan statique avec un personnage en combinaison assie sur un mecha.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <img alt="Petit robot à l'œil rouge debout sur un tas de robots dans l'obscurité" loading="lazy" src="media/tas-robots.jpg"/>
+       </div>
+       <h3>
+        Le tas de robots
+       </h3>
+       <p>
+        Collines de robots empilés dans un décharge distopique. Scene inspirer de wall-e.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <img alt="Rendu gris uni d'une maison en ruine avec un arbre qui traverse la pièce" loading="lazy" src="media/maison-ruine.jpg"/>
+       </div>
+       <h3>
+        Maison en ruine
+       </h3>
+       <p>
+        Rendu sans textures d'une maison en ruine. Pour un porjet de jeu narratif.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <img alt="Sous-bois enneigé en profondeur de champ avec rochers et sapins dans la brume" loading="lazy" src="media/sous-bois-neige.jpg"/>
+       </div>
+       <h3>
+        Sous-bois enneigé
+       </h3>
+       <p>
+        premier plan flou, neige modelée, sapins dans la brume. Pour un projet de jeu narratif.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="animation" style="padding-top:0">
+    <div class="wrap">
+     <h2>
+      Animation de personnages
+     </h2>
+     <div class="grid">
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vignette-robot-rebuts.jpg" preload="none" src="media/robot-rebuts.mp4">
+        </video>
+       </div>
+       <h3>
+        Robot sur le tas de rebuts
+       </h3>
+       <p>
+        Animation du reveil d'un robot au milieu de plein de rebuts, scene inspiré de wall-e.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vignette-legbot.jpg" preload="none" src="media/legbot.mp4">
+        </video>
+       </div>
+       <h3>
+        Legbot
+       </h3>
+       <p>
+        Petit robot orange bipède de course, présentation des différente animation, pour un projet de jeu narratif.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vignette-robot-ecran.jpg" preload="none" src="media/robot-ecran.mp4">
+        </video>
+       </div>
+       <h3>
+        Robot cassette.
+       </h3>
+       <p>
+        Robot dont la tête contiens un cassette , résentation des différente animation, pour un porjet de jeu narratif.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="modelisation" style="padding-top:0">
+    <div class="wrap">
+     <h2>
+      Modélisation d'objets
+     </h2>
+     <p class="sub">
+      Modèles en rendu sans textures
+     </p>
+     <div class="grid">
+      <div class="card">
+       <div class="media">
+        <img alt="Véhicule chenillé avec tourelle et canon, rendu gris" loading="lazy" src="media/vehicule-chenille.jpg"/>
+       </div>
+       <h3>
+        Véhicule militaire (RCV)
+       </h3>
+       <p>
+        Recreation d'un vehicule avec image de référence.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vignette-stg44.jpg" preload="none" src="media/stg44.mp4">
+        </video>
+       </div>
+       <h3>
+        StG 44
+       </h3>
+       <p>
+        Fusil d'assaut allemand stg44 pour un projet de jeu narratif sur la 2nd guerre mondiale.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vignette-ppsh41.jpg" preload="none" src="media/ppsh41.mp4">
+        </video>
+       </div>
+       <h3>
+        PPSh-41
+       </h3>
+       <p>
+        Pistolet-mitrailleur russe pour un projet de jeu narratif sur la 2nd guerre mondiale.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="effets" style="padding-top:0">
+    <div class="wrap">
+     <h2>
+      Effets
+     </h2>
+     <div class="grid">
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vignette-explosion-etincelles.jpg" preload="none" src="media/explosion-etincelles.mp4">
+        </video>
+       </div>
+       <h3>
+        Explosion
+       </h3>
+       <p>
+        Effet d'explosion avec étincelles et effet de projectile enflammé.
+       </p>
+      </div>
+      <div class="card">
+       <div class="media">
+        <video controls="" loop="" muted="" playsinline="" autoplay="" poster="media/vehicule-chenille.jpg" preload="none" src="media/vehicule-chenille-mouvement.mp4">
+        </video>
+       </div>
+       <h3>
+        Véhicule  chenille en mouvement
+       </h3>
+       <p>
+        Modèle du véhicule militaire en mouvement avec tremblement de caméra et effet spéciaux.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="logiciels" style="padding-top:0">
+    <div class="wrap">
+     <h2>
+      Logiciels utilisés
+     </h2>
+     <div class="grid">
+      <div class="card tool-card">
+       <div class="media">
+        <img class="img-fill" alt="Logo de Blender" loading="lazy" src="media/blender_community_badge_white.svg"/>
+       </div>
+       <h3>
+        Blender
+       </h3>
+       <p>
+        Blender est un logiciel de modélisation 3D/2D, d'animation, de texturing, de compositing et d'édition vidéo gratuit et opensource.
+       </p>
+      </div>
+      <div class="card tool-card">
+       <div class="media">
+        <img class="img-fill" alt="Logo de Quixel Mixer" loading="lazy" src="media/mixer_icon_2048_preview.png"/>
+       </div>
+       <h3>
+        Quixel Mixer
+       </h3>
+       <p>
+        Quixel Mixer est un logiciel de texturing gratuit qui permet un plus grande flexibilité que blender.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="about" id="apropos">
+    <div class="wrap about-grid">
+     <div>
+      <h2>
+       À propos
+      </h2>
+      <p>
+       Étudiant en L3 MIAGE, je me forme aux méthodes informatiques appliquées à la gestion des entreprises. À côté de mes études, je fais de la modélisation et de l'animation 3D par passion, avec Blender, Quixel Mixer.
+      </p>
+     </div>
+     <div>
+      <h2>
+       Lien avec l'informatique
+      </h2>
+      <p>
+       La 3D m'a appris la rigueur et la patience : découper un projet en étapes, gérer des fichiers volumineux et trouver les paramètre à modifier lorsque le rendu n'est pas satisfaisant. Ce hobby m'a aussi appris à apprendre de nouvel technologie et à chercher lorsque je ne connais pas un outil ou un méthode.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="contact" id="contact">
+    <div class="wrap">
+     <h2>
+      Me contacter
+     </h2>
+     <a href="mailto:maxime.m.m@outlook.fr">
+      maxime.m.m@outlook.fr
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer>
+   <div class="wrap">
+    © 2026 Maxime Mourey--Morel
+   </div>
+  </footer>
+ </body>
+</html>
